@@ -2,11 +2,15 @@ package com.studio.features.login.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.SwingUtilities;
 
 import com.studio.core.constants.AppStrings;
 import com.studio.core.shared_widgets.AppButton;
@@ -15,7 +19,7 @@ import com.studio.core.shared_widgets.AppLable;
 
 public class LoginPage extends JPanel {
     public AppFiled usernameField = new AppFiled();
-    public AppFiled passwordField = new AppFiled();
+    public JPasswordField passwordField = new JPasswordField(); // استخدم حقل كلمة مرور مناسب
     public AppButton submitButton = new AppButton(AppStrings.LOGIN);
 
     public LoginPage() {
@@ -35,7 +39,7 @@ public class LoginPage extends JPanel {
         mainPnel.add(userLabel);
         mainPnel.add(Box.createRigidArea(new Dimension(0, 5)));
         mainPnel.add(usernameField);
-
+         passwordField.setEchoChar('•');
         mainPnel.add(Box.createRigidArea(new Dimension(0, 15)));
         AppLable pasLable = new AppLable(AppStrings.USER_PASSWORD);
         pasLable.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -43,11 +47,28 @@ public class LoginPage extends JPanel {
         mainPnel.add(Box.createRigidArea(new Dimension(0, 5)));
         mainPnel.add(passwordField);
 
+
+// إضافة دعم لمفتاح Enter
+        KeyAdapter enterListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    submitButton.doClick();
+                }
+            }
+        };
+        usernameField.addKeyListener(enterListener);
+        passwordField.addKeyListener(enterListener);
+        
+        // تعيين التركيز الأولي
+        SwingUtilities.invokeLater(() -> usernameField.requestFocusInWindow());
+
         mainPnel.add(Box.createRigidArea(new Dimension(0, 25)));
         mainPnel.add(submitButton);
 
         this.add(mainPnel);
         this.setVisible(true);
+
     }
 
 }
