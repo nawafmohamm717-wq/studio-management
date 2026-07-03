@@ -48,7 +48,6 @@ public class LoginPage extends JPanel {
         mainPnel.add(passwordField);
 
 
-// إضافة دعم لمفتاح Enter
         KeyAdapter enterListener = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -60,7 +59,6 @@ public class LoginPage extends JPanel {
         usernameField.addKeyListener(enterListener);
         passwordField.addKeyListener(enterListener);
         
-        // تعيين التركيز الأولي
         SwingUtilities.invokeLater(() -> usernameField.requestFocusInWindow());
 
         mainPnel.add(Box.createRigidArea(new Dimension(0, 25)));
